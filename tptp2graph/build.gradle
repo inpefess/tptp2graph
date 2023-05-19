@@ -13,10 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
 */
+
 plugins {
     id 'application'
     id 'jacoco'
     id 'com.google.protobuf' version '0.9.1'
+    id 'maven-publish'
 }
 
 repositories {
@@ -92,4 +94,22 @@ application {
         project.findProperty("mainClassToRun").toString() :
         'com.github.inpefess.tptp2graph.tptp2graph.TPTPProto2Graph'
    )
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/inpefess/tptp2graph")
+            credentials {
+                username = project.findProperty("gpr.user")
+                password = project.findProperty("gpr.key")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }

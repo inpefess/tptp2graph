@@ -30,4 +30,8 @@ public final class LabeledNode {
   public final static LabeledNode build(final int index, final NodeKind kind, final String label) {
     return new LabeledNode(index, kind, label);
   }
+
+  public final String toString() {
+    return "LabeledNode(" + index + ", " + kind + ", " + label + ")";
+  }
 }

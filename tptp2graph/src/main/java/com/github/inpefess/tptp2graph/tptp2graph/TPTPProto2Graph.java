@@ -52,7 +52,7 @@ public final class TPTPProto2Graph {
       tptpGraph.putEdgeValue(previousNode, currentNode, EdgeKind.NCS);
     }
     for (final LabeledNode dataNode : dataNodes) {
-      if (dataNode.label == currentNode.label) {
+      if (dataNode.label.equals(currentNode.label)) {
         tptpGraph.putEdgeValue(dataNode, currentNode, EdgeKind.DDG);
       }
     }

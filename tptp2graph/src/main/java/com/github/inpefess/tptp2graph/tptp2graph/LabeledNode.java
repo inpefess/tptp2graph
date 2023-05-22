@@ -13,22 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
 */
+
 package com.github.inpefess.tptp2graph.tptp2graph;
 
-import java.io.IOException;
-import java.io.Writer;
-import com.google.common.graph.EndpointPair;
-import com.google.common.graph.ValueGraph;
+public final class LabeledNode {
+  public final String label;
+  public final int index;
+  public final NodeKind kind;
 
-public class GraphWriter {
-  public static void writeDot(ValueGraph<LabeledNode, EdgeKind> graph, Writer writer)
-      throws IOException {
-    writer.write("digraph {\n");
-    for (EndpointPair<LabeledNode> edge : graph.edges()) {
-      writer.write("\"" + edge.source().label + edge.source().index + "\" -> \""
-          + edge.target().label + edge.target().index + "\"\n");
-    }
-    writer.write("}");
-    writer.close();
+  public LabeledNode(final int index, final NodeKind kind, final String label) {
+    this.label = label;
+    this.kind = kind;
+    this.index = index;
+  }
+
+  public final static LabeledNode build(final int index, final NodeKind kind, final String label) {
+    return new LabeledNode(index, kind, label);
   }
 }

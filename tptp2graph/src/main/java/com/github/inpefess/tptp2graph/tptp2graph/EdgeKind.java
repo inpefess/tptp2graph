@@ -15,20 +15,6 @@
 */
 package com.github.inpefess.tptp2graph.tptp2graph;
 
-import java.io.IOException;
-import java.io.Writer;
-import com.google.common.graph.EndpointPair;
-import com.google.common.graph.ValueGraph;
-
-public class GraphWriter {
-  public static void writeDot(ValueGraph<LabeledNode, EdgeKind> graph, Writer writer)
-      throws IOException {
-    writer.write("digraph {\n");
-    for (EndpointPair<LabeledNode> edge : graph.edges()) {
-      writer.write("\"" + edge.source().label + edge.source().index + "\" -> \""
-          + edge.target().label + edge.target().index + "\"\n");
-    }
-    writer.write("}");
-    writer.close();
-  }
+public enum EdgeKind {
+  AST, NCS, DDG
 }

@@ -29,14 +29,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class TPTP2GraphTest {
-  private static TPTPProto2Graph tptp2Graph;
+  private static TptpProto2Graph tptp2Graph;
   private static Node tptpProto;
 
   @BeforeAll
   static void setUp() throws FileNotFoundException {
     StringReader testProblem = new StringReader("cnf(test, axiom, ~ p(f(X, f(Y, X))) | p(X, Y)).");
     tptpProto = (new Tptp2Proto("")).tptp2Proto(testProblem);
-    tptp2Graph = new TPTPProto2Graph();
+    tptp2Graph = new TptpProto2Graph();
     tptp2Graph.addNode(tptpProto, null, null, new ArrayList<>());
   }
 

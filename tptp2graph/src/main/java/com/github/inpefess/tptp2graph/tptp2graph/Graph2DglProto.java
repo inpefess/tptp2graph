@@ -17,35 +17,35 @@
 package com.github.inpefess.tptp2graph.tptp2graph;
 
 import java.util.HashMap;
-import com.github.inpefess.tptp2graph.graph_proto.DGLGraph;
-import com.github.inpefess.tptp2graph.graph_proto.NodeData;
+import com.github.inpefess.tptp2graph.graphproto.DglGraph;
+import com.github.inpefess.tptp2graph.graphproto.NodeData;
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.Graph;
 
-class Graph2DGLProto<NodeType> {
-  private Graph<NodeType> graph;
-  private HashMap<NodeType, NodeKind> nodeKinds;
-  DGLGraph.Builder dglGraph;
+class Graph2DglProto<NodeT> {
+  private Graph<NodeT> graph;
+  private HashMap<NodeT, NodeKind> nodeKinds;
+  DglGraph.Builder dglGraph;
 
-  public Graph2DGLProto(Graph<NodeType> graph, HashMap<NodeType, NodeKind> nodeKinds) {
+  public Graph2DglProto(Graph<NodeT> graph, HashMap<NodeT, NodeKind> nodeKinds) {
     this.graph = graph;
     this.nodeKinds = nodeKinds;
   }
 
-  public DGLGraph toDGLProto() {
-    dglGraph = DGLGraph.newBuilder();
-    HashMap<NodeType, Integer> nodeIndex = addNodes();
-    for (EndpointPair<NodeType> edge : graph.edges()) {
+  public DglGraph toDglProto() {
+    dglGraph = DglGraph.newBuilder();
+    HashMap<NodeT, Integer> nodeIndex = addNodes();
+    for (EndpointPair<NodeT> edge : graph.edges()) {
       dglGraph.addSource(nodeIndex.get(edge.source()));
       dglGraph.addTarget(nodeIndex.get(edge.target()));
     }
     return dglGraph.build();
   }
 
-  private HashMap<NodeType, Integer> addNodes() {
-    HashMap<NodeType, Integer> nodeIndex = new HashMap<>();
+  private HashMap<NodeT, Integer> addNodes() {
+    HashMap<NodeT, Integer> nodeIndex = new HashMap<>();
     int index = 0;
-    for (NodeType node : graph.nodes()) {
+    for (NodeT node : graph.nodes()) {
       nodeIndex.put(node, index++);
       dglGraph.addNdata(getNodeData(index, nodeKinds.get(node)));
     }
@@ -53,10 +53,10 @@ class Graph2DGLProto<NodeType> {
   }
 
   private NodeData getNodeData(int index, NodeKind nodeKind) {
-    NodeData.Builder nData = NodeData.newBuilder();
+    NodeData.Builder ndata = NodeData.newBuilder();
     for (NodeKind possibleNodeKind : NodeKind.values()) {
-      nData.addFeature(possibleNodeKind == nodeKind ? 1 : 0);
+      ndata.addFeature(possibleNodeKind == nodeKind ? 1 : 0);
     }
-    return nData.build();
+    return ndata.build();
   }
 }

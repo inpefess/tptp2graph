@@ -16,9 +16,9 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-package com.github.inpefess.tptp2graph.graph_proto;
+package com.github.inpefess.tptp2graph.graphproto;
 
-message DGLGraph {
+message DglGraph {
   repeated int64 source = 1;
   repeated int64 target = 2;
   repeated NodeData ndata = 3;

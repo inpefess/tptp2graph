@@ -19,6 +19,7 @@ plugins {
     id 'jacoco'
     id 'com.google.protobuf' version '0.9.1'
     id 'maven-publish'
+    id 'checkstyle'
 }
 
 repositories {
@@ -112,4 +113,8 @@ publishing {
             from(components.java)
         }
     }
+}
+
+checkstyle {
+    toolVersion = '10.11.0'
 }

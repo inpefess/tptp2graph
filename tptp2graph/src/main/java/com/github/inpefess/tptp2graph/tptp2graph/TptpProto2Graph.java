@@ -13,6 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
 */
+
 package com.github.inpefess.tptp2graph.tptp2graph;
 
 import java.io.FileInputStream;
@@ -27,7 +28,7 @@ import com.github.inpefess.tptpgrpc.tptpproto.Node;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraphBuilder;
 
-public final class TPTPProto2Graph {
+public final class TptpProto2Graph {
   public final MutableValueGraph<LabeledNode, EdgeKind> tptpGraph;
   private int uniqueIndex;
   private static final Map<String, NodeKind> symbolToNodeKind =
@@ -86,18 +87,18 @@ public final class TPTPProto2Graph {
     return currentNode;
   }
 
-  public TPTPProto2Graph() {
+  public TptpProto2Graph() {
     tptpGraph = ValueGraphBuilder.directed().allowsSelfLoops(false).build();
     uniqueIndex = 0;
   }
 
-  public final static void main(String[] args) throws IOException {
+  public static final void main(String[] args) throws IOException {
     final Scanner problemList = new Scanner(new FileInputStream(args[0]));
     int fileIndex = 0;
     while (problemList.hasNextLine()) {
       String outputFilename = Paths.get(args[1], fileIndex++ + ".pb").toString();
       Node tptpProto = Node.parseFrom(new FileInputStream(problemList.nextLine()));
-      TPTPProto2Graph tptpProto2Graph = new TPTPProto2Graph();
+      TptpProto2Graph tptpProto2Graph = new TptpProto2Graph();
       // DGLGraph dglGraph = (new Graph2DGLProto<String>(tptpProto2Graph.getTptpGraph(),
       //     tptpProto2Graph.getNodeKinds())).toDGLProto();
       // dglGraph.writeTo(new FileOutputStream(outputFilename));

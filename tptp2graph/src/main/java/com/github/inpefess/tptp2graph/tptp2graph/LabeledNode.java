@@ -27,7 +27,7 @@ public final class LabeledNode {
     this.index = index;
   }
 
-  public final static LabeledNode build(final int index, final NodeKind kind, final String label) {
+  public static final LabeledNode build(final int index, final NodeKind kind, final String label) {
     return new LabeledNode(index, kind, label);
   }
 

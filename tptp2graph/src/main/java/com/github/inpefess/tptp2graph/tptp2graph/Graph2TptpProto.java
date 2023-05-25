@@ -44,6 +44,14 @@ final class Graph2TptpProto {
         childNodes.add(edge.target());
       }
     }
+    final List<LabeledNode> sortedChildNodes = getSortedChildNodes(childNodes);
+    for (final LabeledNode childNode : sortedChildNodes) {
+      tptpProto.addChild(parseNode(childNode));
+    }
+    return tptpProto.build();
+  }
+
+  private final List<LabeledNode> getSortedChildNodes(final List<LabeledNode> childNodes) {
     final ValueGraph<LabeledNode, EdgeKind> childNodesGraph =
         Graphs.inducedSubgraph(graph, childNodes);
     List<LabeledNode> sortedChildNodes = List.copyOf(childNodesGraph.nodes());
@@ -53,10 +61,7 @@ final class Graph2TptpProto {
         sortedChildNodes = parseLinkedListArguments(childNodesGraph, anyStartingNode);
       }
     }
-    for (final LabeledNode childNode : sortedChildNodes) {
-      tptpProto.addChild(parseNode(childNode));
-    }
-    return tptpProto.build();
+    return sortedChildNodes;
   }
 
   private static final LabeledNode getTheStartingNode(final ValueGraph<LabeledNode, EdgeKind> graph)

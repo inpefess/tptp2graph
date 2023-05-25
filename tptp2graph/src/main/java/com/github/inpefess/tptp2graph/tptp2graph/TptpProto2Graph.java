@@ -37,35 +37,13 @@ public final class TptpProto2Graph {
 
   public final LabeledNode addNode(Node node, LabeledNode parentNode, LabeledNode previousNode,
       List<LabeledNode> dataNodes) {
-    NodeKind nodeKind = NodeKind.PREDICATE_OR_FUNCTION;
-    if (symbolToNodeKind.containsKey(node.getValue())) {
-      nodeKind = symbolToNodeKind.get(node.getValue());
-    } else {
-      if (Character.isUpperCase(node.getValue().charAt(0))) {
-        nodeKind = NodeKind.VARIABLE;
-      }
-    }
-    final LabeledNode currentNode = LabeledNode.build(uniqueIndex++, nodeKind, node.getValue());
-    if (parentNode != null) {
-      tptpGraph.putEdgeValue(parentNode, currentNode, EdgeKind.AST);
-    }
-    if (previousNode != null) {
-      tptpGraph.putEdgeValue(previousNode, currentNode, EdgeKind.NCS);
-    }
-    for (final LabeledNode dataNode : dataNodes) {
-      if (dataNode.label.equals(currentNode.label)) {
-        tptpGraph.putEdgeValue(dataNode, currentNode, EdgeKind.DDG);
-      }
-    }
+    final NodeKind nodeKind = getNodeKind(node);
+    final LabeledNode currentNode =
+        processCurrentNode(node, parentNode, previousNode, dataNodes, nodeKind);
     switch (node.getValue()) {
       case "!":
       case "?":
-        final int variableCount = node.getChildCount() - 1;
-        final List<LabeledNode> newDataNodes = new ArrayList<>(dataNodes);
-        for (int i = 0; i < variableCount; i++) {
-          newDataNodes.add(addNode(node.getChild(i), currentNode, null, Collections.emptyList()));
-        }
-        addNode(node.getChild(variableCount), currentNode, null, newDataNodes);
+        processQuantifier(node, dataNodes, currentNode);
         break;
       case "|":
       case "&":
@@ -87,13 +65,52 @@ public final class TptpProto2Graph {
     return currentNode;
   }
 
+  private final void processQuantifier(final Node node, final List<LabeledNode> dataNodes,
+      final LabeledNode currentNode) {
+    final int variableCount = node.getChildCount() - 1;
+    final List<LabeledNode> newDataNodes = new ArrayList<>(dataNodes);
+    for (int i = 0; i < variableCount; i++) {
+      newDataNodes.add(addNode(node.getChild(i), currentNode, null, Collections.emptyList()));
+    }
+    addNode(node.getChild(variableCount), currentNode, null, newDataNodes);
+  }
+
+  private final LabeledNode processCurrentNode(final Node node, final LabeledNode parentNode,
+      final LabeledNode previousNode, final List<LabeledNode> dataNodes, final NodeKind nodeKind) {
+    final LabeledNode currentNode = LabeledNode.build(uniqueIndex++, nodeKind, node.getValue());
+    if (parentNode != null) {
+      tptpGraph.putEdgeValue(parentNode, currentNode, EdgeKind.AST);
+    }
+    if (previousNode != null) {
+      tptpGraph.putEdgeValue(previousNode, currentNode, EdgeKind.NCS);
+    }
+    for (final LabeledNode dataNode : dataNodes) {
+      if (dataNode.label.equals(currentNode.label)) {
+        tptpGraph.putEdgeValue(dataNode, currentNode, EdgeKind.DDG);
+      }
+    }
+    return currentNode;
+  }
+
+  private final NodeKind getNodeKind(final Node node) {
+    NodeKind nodeKind = NodeKind.PREDICATE_OR_FUNCTION;
+    if (symbolToNodeKind.containsKey(node.getValue())) {
+      nodeKind = symbolToNodeKind.get(node.getValue());
+    } else {
+      if (Character.isUpperCase(node.getValue().charAt(0))) {
+        nodeKind = NodeKind.VARIABLE;
+      }
+    }
+    return nodeKind;
+  }
+
   public TptpProto2Graph() {
     tptpGraph = ValueGraphBuilder.directed().allowsSelfLoops(false)
         .incidentEdgeOrder(ElementOrder.stable()).nodeOrder(ElementOrder.insertion()).build();
     uniqueIndex = 0;
   }
 
-  public static final void main(String[] args) throws IOException {
+  public static final void main(final String[] args) throws IOException {
     final Scanner problemList = new Scanner(new FileInputStream(args[0]));
     int fileIndex = 0;
     while (problemList.hasNextLine()) {

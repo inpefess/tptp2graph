@@ -48,6 +48,9 @@
   </module>
 
   <module name="TreeWalker">
+    <module name="MethodLength">
+      <property name="max" value="30"/>
+    </module>
     <module name="MethodCount">
       <property name="maxTotal" value="10"/>
     </module>

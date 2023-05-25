@@ -19,6 +19,7 @@ plugins {
     id 'jacoco'
     id 'com.google.protobuf' version '0.9.1'
     id 'maven-publish'
+    id 'checkstyle'
 }
 
 repositories {
@@ -45,7 +46,7 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
-    implementation 'tptp-grpc:tptp_grpc:0.0.5'
+    implementation 'tptp-grpc:tptpgrpc:0.0.6'
 
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
     implementation 'com.google.protobuf:protobuf-java:3.23.0'
@@ -112,4 +113,8 @@ publishing {
             from(components.java)
         }
     }
+}
+
+checkstyle {
+    toolVersion = '10.11.0'
 }

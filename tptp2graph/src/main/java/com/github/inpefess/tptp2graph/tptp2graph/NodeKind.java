@@ -13,8 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
 */
+
 package com.github.inpefess.tptp2graph.tptp2graph;
 
 public enum NodeKind {
-  AND, NOT, OR, PREDICATE, FUNCTION, VARIABLE, APPLICATION, ARGUMENT_LIST, PLACEHOLDER;
+  AND, NOT, OR, PREDICATE_OR_FUNCTION, VARIABLE, FOR_ALL, EXISTS, EQUALITY, INEQUALITY;
 }

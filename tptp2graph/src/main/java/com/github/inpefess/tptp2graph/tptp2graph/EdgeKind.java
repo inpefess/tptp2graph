@@ -16,8 +16,6 @@
 
 package com.github.inpefess.tptp2graph.tptp2graph;
 
-class GraphTraversalException extends RuntimeException {
-  public GraphTraversalException(String errorMessage) {
-    super(errorMessage);
-  }
+public enum EdgeKind {
+  AST, NCS, DDG
 }

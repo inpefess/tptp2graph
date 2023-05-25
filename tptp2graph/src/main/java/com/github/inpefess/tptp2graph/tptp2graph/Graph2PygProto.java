@@ -16,20 +16,21 @@
 
 package com.github.inpefess.tptp2graph.tptp2graph;
 
-import java.io.IOException;
-import java.io.Writer;
+import com.github.inpefess.tptp2graph.pygproto.Data;
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.ValueGraph;
 
-public class GraphWriter {
-  public static void writeDot(ValueGraph<LabeledNode, EdgeKind> graph, Writer writer)
-      throws IOException {
-    writer.write("digraph {\n");
-    for (EndpointPair<LabeledNode> edge : graph.edges()) {
-      writer.write("\"" + edge.source().label + edge.source().index + "\" -> \""
-          + edge.target().label + edge.target().index + "\"\n");
+final class Graph2PygProto {
+  public static final Data toPygProto(final ValueGraph<LabeledNode, EdgeKind> graph) {
+    final Data.Builder pygData = Data.newBuilder();
+    for (final EndpointPair<LabeledNode> edge : graph.edges()) {
+      pygData.addEdgeIndexSource(edge.source().index);
+      pygData.addEdgeIndexTarget(edge.target().index);
+      pygData.addEdgeAttr(graph.edgeValue(edge).get().ordinal());
     }
-    writer.write("}");
-    writer.close();
+    for (final LabeledNode node : graph.nodes()) {
+      pygData.addX(node.kind.ordinal());
+    }
+    return pygData.build();
   }
 }

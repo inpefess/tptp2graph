@@ -16,14 +16,11 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-package com.github.inpefess.tptp2graph.graph_proto;
+package com.github.inpefess.tptp2graph.pygproto;
 
-message DGLGraph {
-  repeated int64 source = 1;
-  repeated int64 target = 2;
-  repeated NodeData ndata = 3;
-}
-
-message NodeData {
-  repeated int64 feature = 1;
+message Data {
+  repeated int64 x = 1;
+  repeated int64 edge_attr = 2;
+  repeated int64 edge_index_source = 3;
+  repeated int64 edge_index_target = 4;
 }

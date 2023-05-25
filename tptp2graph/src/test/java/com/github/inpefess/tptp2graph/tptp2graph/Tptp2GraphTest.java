@@ -13,10 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
 */
+
 package com.github.inpefess.tptp2graph.tptp2graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,13 +28,13 @@ import com.github.inpefess.tptpgrpc.tptpproto.Node;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-final class TPTP2GraphTest {
+final class Tptp2GraphTest {
   private static TptpProto2Graph tptp2Graph;
   private static Node tptpProto;
 
   @BeforeAll
-  static final void setUp() throws FileNotFoundException {
-    try (StringReader testProblem =
+  static final void setUp() throws IOException {
+    try (final StringReader testProblem =
         new StringReader("cnf(test, axiom, ~ p(f(X, f(Y, X))) | p(X, Y)).")) {
       tptpProto = (new Tptp2Proto("")).tptp2Proto(testProblem);
     }
@@ -44,14 +44,14 @@ final class TPTP2GraphTest {
 
   @Test
   final void testWrite2Dot() throws IOException {
-    try (FileWriter outputFile = new FileWriter("graph.dot")) {
+    try (final FileWriter outputFile = new FileWriter("graph.dot")) {
       GraphWriter.writeDot(tptp2Graph.tptpGraph, outputFile);
     }
   }
 
   @Test
-  final void testWrite2DGL() throws IOException {
-    try (InputStream testGraph = this.getClass().getResourceAsStream("/test_pyg.pb")) {
+  final void testWrite2Pyg() throws IOException {
+    try (final InputStream testGraph = this.getClass().getResourceAsStream("/test_pyg.pb")) {
       assertEquals(Graph2PygProto.toPygProto(tptp2Graph.tptpGraph), Data.parseFrom(testGraph));
     }
   }

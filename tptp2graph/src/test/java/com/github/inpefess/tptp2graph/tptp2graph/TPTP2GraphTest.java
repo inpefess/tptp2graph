@@ -34,25 +34,30 @@ final class TPTP2GraphTest {
 
   @BeforeAll
   static final void setUp() throws FileNotFoundException {
-    final StringReader testProblem = new StringReader("cnf(test, axiom, ~ p(f(X, f(Y, X))) | p(X, Y)).");
-    tptpProto = (new Tptp2Proto("")).tptp2Proto(testProblem);
+    try (StringReader testProblem =
+        new StringReader("cnf(test, axiom, ~ p(f(X, f(Y, X))) | p(X, Y)).")) {
+      tptpProto = (new Tptp2Proto("")).tptp2Proto(testProblem);
+    }
     tptp2Graph = new TptpProto2Graph();
     tptp2Graph.addNode(tptpProto, null, null, new ArrayList<>());
   }
 
   @Test
   final void testWrite2Dot() throws IOException {
-    GraphWriter.writeDot(tptp2Graph.tptpGraph, new FileWriter("graph.dot"));
+    try (FileWriter outputFile = new FileWriter("graph.dot")) {
+      GraphWriter.writeDot(tptp2Graph.tptpGraph, outputFile);
+    }
   }
 
   @Test
   final void testWrite2DGL() throws IOException {
-    final InputStream testGraph = this.getClass().getResourceAsStream("/test_pyg.pb");
-    assertEquals(Graph2PygProto.toPygProto(tptp2Graph.tptpGraph), Data.parseFrom(testGraph));
+    try (InputStream testGraph = this.getClass().getResourceAsStream("/test_pyg.pb")) {
+      assertEquals(Graph2PygProto.toPygProto(tptp2Graph.tptpGraph), Data.parseFrom(testGraph));
+    }
   }
 
   @Test
-  final void testGraph2Proto() throws GraphTraversalException, IOException {
+  final void testGraph2Proto() throws GraphTraversalException {
     assertEquals((new Graph2TptpProto(tptp2Graph.tptpGraph)).toProto(), tptpProto);
   }
 }

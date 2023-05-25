@@ -16,11 +16,9 @@
 package com.github.inpefess.tptp2graph.tptp2graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import com.github.inpefess.tptpgrpc.tptp2proto.Tptp2Proto;
@@ -28,21 +26,21 @@ import com.github.inpefess.tptpgrpc.tptpproto.Node;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class TPTP2GraphTest {
+final class TPTP2GraphTest {
   private static TptpProto2Graph tptp2Graph;
   private static Node tptpProto;
 
   @BeforeAll
-  static void setUp() throws FileNotFoundException {
-    StringReader testProblem = new StringReader("cnf(test, axiom, ~ p(f(X, f(Y, X))) | p(X, Y)).");
+  static final void setUp() throws FileNotFoundException {
+    final StringReader testProblem = new StringReader("cnf(test, axiom, ~ p(f(X, f(Y, X))) | p(X, Y)).");
     tptpProto = (new Tptp2Proto("")).tptp2Proto(testProblem);
     tptp2Graph = new TptpProto2Graph();
     tptp2Graph.addNode(tptpProto, null, null, new ArrayList<>());
   }
 
   @Test
-  void testWrite2Dot() throws IOException {
-    GraphWriter.<LabeledNode>writeDot(tptp2Graph.tptpGraph, new FileWriter("graph.dot"));
+  final void testWrite2Dot() throws IOException {
+    GraphWriter.writeDot(tptp2Graph.tptpGraph, new FileWriter("graph.dot"));
   }
 
   // @Test
@@ -54,8 +52,7 @@ class TPTP2GraphTest {
   // }
 
   @Test
-  void testGraph2Proto() throws GraphTraversalException, IOException {
-    // assertEquals((new Graph2TPTPProto<String>()).toProto(tptp2Graph.getTptpGraph()), tptpProto);
-    assertNull(tptp2Graph.tptpGraph);
+  final void testGraph2Proto() throws GraphTraversalException, IOException {
+    assertEquals((new Graph2TptpProto(tptp2Graph.tptpGraph)).toProto(), tptpProto);
   }
 }

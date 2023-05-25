@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import com.github.inpefess.tptpgrpc.tptpproto.Node;
+import com.google.common.graph.ElementOrder;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraphBuilder;
 
@@ -88,7 +89,8 @@ public final class TptpProto2Graph {
   }
 
   public TptpProto2Graph() {
-    tptpGraph = ValueGraphBuilder.directed().allowsSelfLoops(false).build();
+    tptpGraph = ValueGraphBuilder.directed().allowsSelfLoops(false)
+        .incidentEdgeOrder(ElementOrder.stable()).build();
     uniqueIndex = 0;
   }
 

@@ -46,7 +46,7 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
-    implementation 'tptp-grpc:tptpgrpc:0.0.6'
+    implementation 'tptp-grpc:tptpgrpc:0.0.7'
 
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
     implementation 'com.google.protobuf:protobuf-java:3.23.0'

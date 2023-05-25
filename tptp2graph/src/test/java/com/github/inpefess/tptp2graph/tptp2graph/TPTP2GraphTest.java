@@ -19,8 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import com.github.inpefess.tptp2graph.pygproto.Data;
 import com.github.inpefess.tptpgrpc.tptp2proto.Tptp2Proto;
 import com.github.inpefess.tptpgrpc.tptpproto.Node;
 import org.junit.jupiter.api.BeforeAll;
@@ -43,13 +45,11 @@ final class TPTP2GraphTest {
     GraphWriter.writeDot(tptp2Graph.tptpGraph, new FileWriter("graph.dot"));
   }
 
-  // @Test
-  // void testWrite2DGL() throws IOException {
-  //   Graph2DGLProto<String> graph2DGLProto =
-  //       new Graph2DGLProto<String>(tptp2Graph.getTptpGraph(), tptp2Graph.getNodeKinds());
-  //   InputStream testGraph = this.getClass().getResourceAsStream("/test_dgl.pb");
-  //   // assertEquals(graph2DGLProto.toDGLProto(), DGLGraph.parseFrom(testGraph));
-  // }
+  @Test
+  final void testWrite2DGL() throws IOException {
+    final InputStream testGraph = this.getClass().getResourceAsStream("/test_pyg.pb");
+    assertEquals(Graph2PygProto.toPygProto(tptp2Graph.tptpGraph), Data.parseFrom(testGraph));
+  }
 
   @Test
   final void testGraph2Proto() throws GraphTraversalException, IOException {

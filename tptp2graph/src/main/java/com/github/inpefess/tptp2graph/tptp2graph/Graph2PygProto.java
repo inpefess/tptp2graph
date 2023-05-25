@@ -29,7 +29,6 @@ final class Graph2PygProto {
       pygData.addEdgeAttr(graph.edgeValue(edge).get().ordinal());
     }
     for (final LabeledNode node : graph.nodes()) {
-      System.out.println(node.index);
       pygData.addX(node.kind.ordinal());
     }
     return pygData.build();

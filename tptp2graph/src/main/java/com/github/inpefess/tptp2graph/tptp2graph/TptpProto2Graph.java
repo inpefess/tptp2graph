@@ -15,6 +15,7 @@
 package com.github.inpefess.tptp2graph.tptp2graph;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -96,12 +97,12 @@ public final class TptpProto2Graph {
     final Scanner problemList = new Scanner(new FileInputStream(args[0]));
     int fileIndex = 0;
     while (problemList.hasNextLine()) {
-      String outputFilename = Paths.get(args[1], fileIndex++ + ".pb").toString();
-      Node tptpProto = Node.parseFrom(new FileInputStream(problemList.nextLine()));
-      TptpProto2Graph tptpProto2Graph = new TptpProto2Graph();
-      // DGLGraph dglGraph = (new Graph2DGLProto<String>(tptpProto2Graph.getTptpGraph(),
-      //     tptpProto2Graph.getNodeKinds())).toDGLProto();
-      // dglGraph.writeTo(new FileOutputStream(outputFilename));
+      final String outputFilename = Paths.get(args[1], fileIndex++ + ".pb").toString();
+      final Node tptpProto = Node.parseFrom(new FileInputStream(problemList.nextLine()));
+      final TptpProto2Graph tptpProto2Graph = new TptpProto2Graph();
+      tptpProto2Graph.addNode(tptpProto, null, null, new ArrayList<>());
+      Graph2PygProto.toPygProto(tptpProto2Graph.tptpGraph)
+          .writeTo(new FileOutputStream(outputFilename));
     }
   }
 }

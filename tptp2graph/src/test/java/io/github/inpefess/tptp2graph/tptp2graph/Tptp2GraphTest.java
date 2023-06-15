@@ -14,7 +14,7 @@
  *  limitations under the License.
 */
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileWriter;
@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
-import com.github.inpefess.tptp2graph.pygproto.Data;
-import com.github.inpefess.tptpgrpc.tptp2proto.Tptp2Proto;
-import com.github.inpefess.tptpgrpc.tptpproto.Node;
+import io.github.inpefess.tptp2graph.pygproto.Data;
+import io.github.inpefess.tptpgrpc.tptp2proto.Tptp2Proto;
+import io.github.inpefess.tptpgrpc.tptpproto.Node;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

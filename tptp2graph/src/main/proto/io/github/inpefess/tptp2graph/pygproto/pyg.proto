@@ -13,9 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
 */
+syntax = "proto3";
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+option java_multiple_files = true;
+package io.github.inpefess.tptp2graph.pygproto;
 
-public enum EdgeKind {
-  AST, NCS, DDG
+message Data {
+  repeated int64 x = 1;
+  repeated int64 edge_attr = 2;
+  repeated int64 edge_index_source = 3;
+  repeated int64 edge_index_target = 4;
 }

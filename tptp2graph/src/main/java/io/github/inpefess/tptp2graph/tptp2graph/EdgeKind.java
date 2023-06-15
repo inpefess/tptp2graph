@@ -14,8 +14,8 @@
  *  limitations under the License.
 */
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
-public enum NodeKind {
-  AND, NOT, OR, PREDICATE_OR_FUNCTION, VARIABLE, FOR_ALL, EXISTS, EQUALITY, INEQUALITY;
+public enum EdgeKind {
+  AST, NCS, DDG
 }

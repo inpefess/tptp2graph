@@ -14,10 +14,24 @@
  *  limitations under the License.
 */
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
-class GraphTraversalException extends RuntimeException {
-  public GraphTraversalException(String errorMessage) {
-    super(errorMessage);
+public final class LabeledNode {
+  public final String label;
+  public final int index;
+  public final NodeKind kind;
+
+  public LabeledNode(final int index, final NodeKind kind, final String label) {
+    this.label = label;
+    this.kind = kind;
+    this.index = index;
+  }
+
+  public static final LabeledNode build(final int index, final NodeKind kind, final String label) {
+    return new LabeledNode(index, kind, label);
+  }
+
+  public final String toString() {
+    return "LabeledNode(" + index + ", " + kind + ", " + label + ")";
   }
 }

@@ -4,7 +4,7 @@ The purpose of this package is to transform [TPTP](https://tptp.org) formulae pa
 
 # How to build
 
-This package uses Java 11 and [Gradle](https://gradle.org/). It also depends on a [package](https://github.com/inpefess/tptp-grpc/packages/1854169) hosted at the GitHub packages Maven [registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry). To get it, first generate GitHub personal access token. Then add you GitHub user name as ``gpr.user`` and you personal access token as ``grp.key`` to ``gradle.properties``.
+This package uses Java 11 and [Gradle](https://gradle.org/).
 
 ```sh
 git clone https://github.com/inpefess/tptp2graph.git

@@ -1,6 +1,6 @@
 # TPTP2Graph
 
-The purpose of this package is to transform [TPTP](https://tptp.org) formulae parsed by [this package](https://github.com/inpefess/tptp-grpc) to graphs stored in the [protobuf](https://protobuf.dev) format to be usable by the [Deep Graph Library](https://www.dgl.ai/).
+The purpose of this package is to transform [TPTP](https://tptp.org) formulae parsed by [this package](https://github.com/inpefess/tptp-grpc) to graphs stored in the [protobuf](https://protobuf.dev) format to be usable by the [Deep Graph Library](https://www.dgl.ai/) and [PyTorch Geometric](https://pyg.org/).
 
 # How to build
 

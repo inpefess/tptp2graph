@@ -13,14 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
 */
-syntax = "proto3";
 
-option java_multiple_files = true;
-package com.github.inpefess.tptp2graph.pygproto;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
-message Data {
-  repeated int64 x = 1;
-  repeated int64 edge_attr = 2;
-  repeated int64 edge_index_source = 3;
-  repeated int64 edge_index_target = 4;
+public enum NodeKind {
+  AND, NOT, OR, PREDICATE_OR_FUNCTION, VARIABLE, FOR_ALL, EXISTS, EQUALITY, INEQUALITY;
 }

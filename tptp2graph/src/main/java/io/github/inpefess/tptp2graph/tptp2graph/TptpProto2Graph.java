@@ -14,7 +14,7 @@
  *  limitations under the License.
 */
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import com.github.inpefess.tptpgrpc.tptpproto.Node;
+import io.github.inpefess.tptpgrpc.tptpproto.Node;
 import com.google.common.graph.ElementOrder;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraphBuilder;

@@ -14,9 +14,9 @@
  *  limitations under the License.
 */
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
-import com.github.inpefess.tptp2graph.pygproto.Data;
+import io.github.inpefess.tptp2graph.pygproto.Data;
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.ValueGraph;
 

@@ -14,11 +14,11 @@
  *  limitations under the License.
 */
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.github.inpefess.tptpgrpc.tptpproto.Node;
+import io.github.inpefess.tptpgrpc.tptpproto.Node;
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.Graphs;
 import com.google.common.graph.ImmutableValueGraph;

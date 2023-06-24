@@ -14,7 +14,7 @@
  *  limitations under the License.
 */
 
-package com.github.inpefess.tptp2graph.tptp2graph;
+package io.github.inpefess.tptp2graph.tptp2graph;
 
 import java.io.IOException;
 import java.io.Writer;
